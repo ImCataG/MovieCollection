@@ -71,10 +71,6 @@ namespace MovieCollection.Repositories.MovieRepository
             return await movies.ToListAsync();
         }
 
-        public async Task<Movie> GetMovieAsync(Guid id)
-        {
-            return await FindByIdAsync(id);
-        }
         public async Task<Movie> GetMovieById(Guid id)
         {
             return await FindByIdAsync(id);

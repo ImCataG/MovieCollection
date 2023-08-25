@@ -15,5 +15,6 @@ namespace MovieCollection.Repositories.MovieRepository
         Task<Movie> UpdateMovie(Guid id, MovieDTO movieDTO);
         public bool MovieExists(Guid id);
         IEnumerable<GenreAvgDTO> GroupByGenreAvg();
+
     }
 }
