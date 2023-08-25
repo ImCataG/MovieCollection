@@ -3,7 +3,7 @@ using MovieCollection.Data;
 using MovieCollection.DTOs;
 using MovieCollection.Models;
 using MovieCollection.Repositories.GenericRepository;
-using System.Diagnostics.Eventing.Reader;
+using MovieCollection.Repositories.GenreRepository;
 
 namespace MovieCollection.Repositories.MovieRepository
 {
@@ -13,7 +13,46 @@ namespace MovieCollection.Repositories.MovieRepository
         {
         }
 
-        public async Task<IEnumerable<MovieDTO>> getMovies()
+        private readonly IGenreRepository _genreRepository;
+
+        public MovieRepository(MovieCollectionContext dbContext, IGenreRepository genreRepository)
+            : base(dbContext)
+        {
+            _genreRepository = genreRepository;
+        }
+
+        public async Task<IEnumerable<MovieDTO>> GetMovies()
+        {
+            var movies = from movie in _context.Movies
+                         select new MovieDTO
+                         {
+                             Guid = movie.Id,
+                             Title = movie.Title,
+                             Description = movie.Description,
+                             GenreId = movie.GenreId,
+                             ReleaseDate = movie.ReleaseDate,
+                             ScreenTime = movie.ScreenTime,
+                         };
+
+            return await movies.ToListAsync();
+        }
+        public async Task<IEnumerable<MovieDTO>> GetMoviesByYear(int year)
+        {
+            var movies = from movie in _context.Movies
+                         where movie.ReleaseDate.Year == year
+                         select new MovieDTO
+                         {
+                             Guid = movie.Id,
+                             Title = movie.Title,
+                             Description = movie.Description,
+                             GenreId = movie.GenreId,
+                             ReleaseDate = movie.ReleaseDate,
+                             ScreenTime = movie.ScreenTime,
+                         };
+
+            return await movies.ToListAsync();
+        }
+        public async Task<IEnumerable<MovieWithDetailsDTO>> GetMoviesWithDetails()
         {
             var movies = from movie in _context.Movies
                          join movieDetails in _context.MovieDetails on movie.Id equals movieDetails.MovieId
@@ -24,11 +63,12 @@ namespace MovieCollection.Repositories.MovieRepository
                              Description = movie.Description,
                              GenreId = movie.GenreId,
                              ReleaseDate = movie.ReleaseDate,
+                             ScreenTime = movie.ScreenTime,
                              AgeRating = movieDetails.AgeRating,
                              Rating = movieDetails.Rating
                          };
 
-            return (IEnumerable<MovieDTO>)await movies.ToListAsync();
+            return await movies.ToListAsync();
         }
 
         public async Task<Movie> GetMovieAsync(Guid id)
@@ -62,8 +102,8 @@ namespace MovieCollection.Repositories.MovieRepository
                 ReleaseDate = movieDTO.ReleaseDate,
                 ScreenTime = movieDTO.ScreenTime,
             };
-            await CreateAsync(mv);
-            await SaveAsync();
+            _context.Movies.Add(mv);
+            await _context.SaveChangesAsync();
         }
 
         public async Task<Movie> DeleteMovieById(Guid id)
@@ -80,7 +120,7 @@ namespace MovieCollection.Repositories.MovieRepository
         public async Task<Movie> UpdateMovie(Guid id, MovieDTO movieDTO)
         {
             var movie = FindById(id);
-            var genre = _context.Genres.Single(x => x.Id == movieDTO.GenreId);
+            var genre = await _genreRepository.FindByIdAsync(movieDTO.GenreId);
 
             if (movie != null)
             {
@@ -88,6 +128,7 @@ namespace MovieCollection.Repositories.MovieRepository
                 movie.Description = movieDTO.Description;
                 movie.ScreenTime = movieDTO.ScreenTime;
                 movie.Genre = genre;
+                movie.GenreId = movieDTO.GenreId;
                 movie.ReleaseDate = movieDTO.ReleaseDate;
                 Update(movie);
                 await SaveAsync();
