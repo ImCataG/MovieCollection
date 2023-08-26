@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MovieCollection.Data;
 
@@ -11,9 +12,11 @@ using MovieCollection.Data;
 namespace MovieCollection.Migrations
 {
     [DbContext(typeof(MovieCollectionContext))]
-    partial class MovieCollectionContextModelSnapshot : ModelSnapshot
+    [Migration("20230826112956_RolesSeeded")]
+    partial class RolesSeeded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,14 +54,14 @@ namespace MovieCollection.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "9caddc2a-970e-4190-9b0a-51f41c000fcc",
+                            Id = "35ac24b2-f132-4978-90f8-d35c5f811507",
                             ConcurrencyStamp = "1",
                             Name = "Admin",
                             NormalizedName = "Admin"
                         },
                         new
                         {
-                            Id = "f7d7e69b-3680-42c6-98f9-47c19801048f",
+                            Id = "2d68313d-9fe5-4e36-bf83-065781ce3abd",
                             ConcurrencyStamp = "2",
                             Name = "User",
                             NormalizedName = "User"

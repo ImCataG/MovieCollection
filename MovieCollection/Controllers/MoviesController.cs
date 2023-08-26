@@ -5,6 +5,7 @@ using MovieCollection.Repositories.MovieRepository;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 using Microsoft.AspNetCore.JsonPatch.Converters;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MovieCollection.Controllers
 {
@@ -19,12 +20,15 @@ namespace MovieCollection.Controllers
             _movieRepository = movieRepository;
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetMovies()
         {
             IEnumerable<MovieDTO> movies = await _movieRepository.GetMovies();
             return Ok(movies);
         }
+
+        [Authorize]
         [HttpGet("withdetails")]
         public async Task<IActionResult> GetMoviesWithDetails()
         {
@@ -32,6 +36,7 @@ namespace MovieCollection.Controllers
             return Ok(movies);
         }
 
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetMovie(Guid id)
         {
@@ -43,6 +48,7 @@ namespace MovieCollection.Controllers
             return Ok(movie);
         }
 
+        [Authorize]
         [HttpGet("year/{year}")]
         public async Task<IActionResult> GetMoviesByYear(int year)
         {
@@ -50,6 +56,7 @@ namespace MovieCollection.Controllers
             return Ok(movies);
         }
 
+        [Authorize]
         [HttpGet("groupbygenreavg")]
         public IActionResult GroupByGenreAvg()
         {
@@ -57,6 +64,7 @@ namespace MovieCollection.Controllers
             return Ok(genreAverages);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> AddMovie(MovieDTO movieDTO)
         {
@@ -68,7 +76,7 @@ namespace MovieCollection.Controllers
             await _movieRepository.AddMovie(movieDTO);
             return CreatedAtAction(nameof(GetMovie), new { id = movieDTO.Guid }, movieDTO);
         }
-
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateMovie(Guid id, MovieDTO movieDTO)
         {
@@ -85,7 +93,7 @@ namespace MovieCollection.Controllers
             Movie updatedMovie = await _movieRepository.UpdateMovie(id, movieDTO);
             return Ok(updatedMovie);
         }
-
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteMovie(Guid id)
         {

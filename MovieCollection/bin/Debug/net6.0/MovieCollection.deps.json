@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v6.0": {
       "MovieCollection/1.0.0": {
         "dependencies": {
+          "Microsoft.AspNetCore.Authentication.JwtBearer": "6.0.21",
           "Microsoft.AspNetCore.Identity": "2.1.39",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "6.0.21",
           "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "6.0.21",
@@ -90,6 +91,17 @@
           "Microsoft.AspNetCore.Authentication.Abstractions": "2.1.1",
           "Microsoft.AspNetCore.Http": "2.1.1",
           "Microsoft.AspNetCore.Http.Extensions": "2.1.1"
+        }
+      },
+      "Microsoft.AspNetCore.Authentication.JwtBearer/6.0.21": {
+        "dependencies": {
+          "Microsoft.IdentityModel.Protocols.OpenIdConnect": "6.21.0"
+        },
+        "runtime": {
+          "lib/net6.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll": {
+            "assemblyVersion": "6.0.21.0",
+            "fileVersion": "6.0.2123.36438"
+          }
         }
       },
       "Microsoft.AspNetCore.Cryptography.Internal/6.0.21": {
@@ -1044,6 +1056,13 @@
       "sha512": "sha512-Zo6SLzqxrW0PFg1AB0xSb+Rta4hCuX8hgOY425ldhFq4kKcmw45oJQ2zOIeeW/6EuBtEy+hwDB96baxTmXtfeA==",
       "path": "microsoft.aspnetcore.authentication.core/2.1.1",
       "hashPath": "microsoft.aspnetcore.authentication.core.2.1.1.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Authentication.JwtBearer/6.0.21": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-EZfFWxMTd2Su5kfhaL5gIhEGANVcBV89qQX4nu/akSQNutW4AjfEujniQJTn/PXUaqOhWnykyKmly4p66CzbRA==",
+      "path": "microsoft.aspnetcore.authentication.jwtbearer/6.0.21",
+      "hashPath": "microsoft.aspnetcore.authentication.jwtbearer.6.0.21.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Cryptography.Internal/6.0.21": {
       "type": "package",

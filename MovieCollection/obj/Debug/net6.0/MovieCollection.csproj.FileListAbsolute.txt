@@ -181,3 +181,4 @@ C:\Users\catag\Desktop\fromgit\MovieCollection\MovieCollection\bin\Debug\net6.0\
 C:\Users\catag\Desktop\fromgit\MovieCollection\MovieCollection\bin\Debug\net6.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
 C:\Users\catag\Desktop\fromgit\MovieCollection\MovieCollection\bin\Debug\net6.0\Microsoft.Extensions.Identity.Core.dll
 C:\Users\catag\Desktop\fromgit\MovieCollection\MovieCollection\bin\Debug\net6.0\Microsoft.Extensions.Identity.Stores.dll
+C:\Users\catag\Desktop\fromgit\MovieCollection\MovieCollection\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

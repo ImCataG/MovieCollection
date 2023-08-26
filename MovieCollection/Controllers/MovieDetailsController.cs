@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MovieCollection.DTOs;
 using MovieCollection.Enums;
 using MovieCollection.Repositories.MovieDetailsRepository;
@@ -44,6 +45,7 @@ namespace MovieCollection.Controllers
             return Ok(movieDetails);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult> AddMovieDetails(MovieDetailsSimpleDTO movieDetailsSimpleDTO)
         {
@@ -58,6 +60,7 @@ namespace MovieCollection.Controllers
             return CreatedAtAction(nameof(GetMovieDetailsByMovieId), new { id = movieDetailsDTO.MovieId }, movieDetailsDTO);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public async Task<ActionResult<MovieDetailsDTO>> UpdateMovieDetails(Guid id, MovieDetailsSimpleDTO movieDetailsSimpleDTO)
         {
@@ -70,6 +73,7 @@ namespace MovieCollection.Controllers
             return Ok(updatedMovieDetails);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<ActionResult<MovieDetailsDTO>> DeleteMovieDetails(Guid id)
         {

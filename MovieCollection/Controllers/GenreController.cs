@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MovieCollection.DTOs;
 using MovieCollection.Repositories.GenreRepository;
 
@@ -33,6 +34,7 @@ namespace MovieCollection.Controllers
             return Ok(genre);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> CreateGenre(string genreName)
         {
@@ -45,6 +47,7 @@ namespace MovieCollection.Controllers
             return Ok("Genre created successfully.");
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateGenre(Guid id, string genreName)
         {
@@ -62,6 +65,7 @@ namespace MovieCollection.Controllers
             return Ok("Genre updated successfully.");
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteGenre(Guid id)
         {

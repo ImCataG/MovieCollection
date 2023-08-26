@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MovieCollection.Data;
 
@@ -11,9 +12,11 @@ using MovieCollection.Data;
 namespace MovieCollection.Migrations
 {
     [DbContext(typeof(MovieCollectionContext))]
-    partial class MovieCollectionContextModelSnapshot : ModelSnapshot
+    [Migration("20230826112547_m2")]
+    partial class m2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,22 +50,6 @@ namespace MovieCollection.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "9caddc2a-970e-4190-9b0a-51f41c000fcc",
-                            ConcurrencyStamp = "1",
-                            Name = "Admin",
-                            NormalizedName = "Admin"
-                        },
-                        new
-                        {
-                            Id = "f7d7e69b-3680-42c6-98f9-47c19801048f",
-                            ConcurrencyStamp = "2",
-                            Name = "User",
-                            NormalizedName = "User"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
