@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using MovieCollection.DTOs;
 using MovieCollection.Models.Authentication;
 using MovieCollection.Services.UserService;
 using System.Drawing.Text;
@@ -27,6 +28,16 @@ namespace MovieCollection.Controllers
             _roleManager = roleManager;
             _configuration = configuration;
             _userService = userService;
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet]
+        [Route("GetUsers")]
+        public async Task<IActionResult> GeetUsers()
+        {
+            IEnumerable<UserGetDTO> users = await _userService.GetUsers();
+            return Ok(users);
+
         }
 
         [HttpPost]

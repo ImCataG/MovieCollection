@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using MovieCollection.DTOs;
 using MovieCollection.Models;
 using MovieCollection.Models.Authentication;
 
@@ -47,6 +49,18 @@ namespace MovieCollection.Services.UserService
 
 
             return true;
+        }
+
+        public async Task<IEnumerable<UserGetDTO>> GetUsers()
+        {
+            var users = from user in _userManager.Users
+                        select new UserGetDTO
+                        {
+                            Username = user.UserName,
+                            Email = user.Email,
+                            PasswordHash = user.PasswordHash
+                        };
+            return await users.ToListAsync();
         }
     }
 }
