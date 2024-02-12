@@ -1,2 +1,2 @@
 # MovieCollection
-.NET project
+.NET project for university
